@@ -6,7 +6,7 @@ from Components.ConfigList import ConfigListScreen
 from Components.Button import Button
 
 config.plugins.RemoteControlSetup = ConfigSubsection()
-config.plugins.RemoteControlSetup.Channel = ConfigInteger(default = 0xf)
+config.plugins.RemoteControlSetup.Channel = ConfigInteger(default=0xf)
 
 class RemoteControlSetup(Screen, ConfigListScreen):
 	skin = """
@@ -35,7 +35,7 @@ class RemoteControlSetup(Screen, ConfigListScreen):
 		}, -2)
 
 		self.list = []
-		ConfigListScreen.__init__(self, self.list, session = self.session)
+		ConfigListScreen.__init__(self, self.list, session=self.session)
 
 		rcchoices = [ ('15', _('all')), ('1', '1'), ('2', '2'), ('4', '3'), ('8', '4')]
 		file = open("/proc/stb/ir/rc/mask0", "r")
@@ -44,7 +44,7 @@ class RemoteControlSetup(Screen, ConfigListScreen):
 		mask = int(line, 16)
 		if mask == 0 or mask > 0xf:
 			mask = 0xf
-		self.channel = ConfigSelection(choices = rcchoices, default = ('%d' % mask))
+		self.channel = ConfigSelection(choices=rcchoices, default=('%d' % mask))
 		self.list.append(getConfigListEntry(_("Channel"), self.channel))
 		self["config"].list = self.list
 		self["config"].l.setList(self.list)
@@ -69,5 +69,5 @@ def startup(reason, **kwargs):
 	file.close()
 
 def Plugins(**kwargs):
-	return [PluginDescriptor(name = "Remote control setup", description = "Lets you configure the remote control channel", where = PluginDescriptor.WHERE_PLUGINMENU, fnc = main),
-					PluginDescriptor(name = "Remote control setup", description = "", where = PluginDescriptor.WHERE_SESSIONSTART, fnc = startup)]
+	return [PluginDescriptor(name="Remote control setup", description="Lets you configure the remote control channel", where=PluginDescriptor.WHERE_PLUGINMENU, fnc=main),
+					PluginDescriptor(name="Remote control setup", description="", where=PluginDescriptor.WHERE_SESSIONSTART, fnc=startup)]
