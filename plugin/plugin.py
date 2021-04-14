@@ -8,6 +8,7 @@ from Components.Button import Button
 config.plugins.RemoteControlSetup = ConfigSubsection()
 config.plugins.RemoteControlSetup.Channel = ConfigInteger(default=0xf)
 
+
 class RemoteControlSetup(Screen, ConfigListScreen):
 	skin = """
 	<screen position="c-175,c-75" size="350,150" title="Remote control setup">
@@ -60,13 +61,16 @@ class RemoteControlSetup(Screen, ConfigListScreen):
 	def keyCancel(self):
 		self.close()
 
+
 def main(session, **kwargs):
 	session.open(RemoteControlSetup)
+
 
 def startup(reason, **kwargs):
 	file = open("/proc/stb/ir/rc/mask0", "w")
 	file.write('%X' % (config.plugins.RemoteControlSetup.Channel.value))
 	file.close()
+
 
 def Plugins(**kwargs):
 	return [PluginDescriptor(name="Remote control setup", description="Lets you configure the remote control channel", where=PluginDescriptor.WHERE_PLUGINMENU, fnc=main),
