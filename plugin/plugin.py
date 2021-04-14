@@ -37,7 +37,7 @@ class RemoteControlSetup(Screen, ConfigListScreen):
 		self.list = []
 		ConfigListScreen.__init__(self, self.list, session=self.session)
 
-		rcchoices = [ ('15', _('all')), ('1', '1'), ('2', '2'), ('4', '3'), ('8', '4')]
+		rcchoices = [('15', _('all')), ('1', '1'), ('2', '2'), ('4', '3'), ('8', '4')]
 		file = open("/proc/stb/ir/rc/mask0", "r")
 		line = file.readline()
 		file.close()
