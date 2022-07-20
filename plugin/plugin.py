@@ -4,6 +4,7 @@ from Components.config import config, ConfigSubsection, ConfigInteger, ConfigSel
 from Components.ActionMap import ActionMap
 from Components.ConfigList import ConfigListScreen
 from Components.Button import Button
+from Tools.Directories import fileExists
 
 config.plugins.RemoteControlSetup = ConfigSubsection()
 config.plugins.RemoteControlSetup.Channel = ConfigInteger(default = 0xf)
@@ -69,5 +70,6 @@ def startup(reason, **kwargs):
 	file.close()
 
 def Plugins(**kwargs):
-	return [PluginDescriptor(name = "Remote control setup", description = "Lets you configure the remote control channel", where = PluginDescriptor.WHERE_PLUGINMENU, fnc = main),
+	if fileExists("proc/stb/ir/rc/mask0"):
+		return [PluginDescriptor(name = "Remote control setup", description = "Lets you configure the remote control channel", where = PluginDescriptor.WHERE_PLUGINMENU, fnc = main),
 					PluginDescriptor(name = "Remote control setup", description = "", where = PluginDescriptor.WHERE_SESSIONSTART, fnc = startup)]
